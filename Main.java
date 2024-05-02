@@ -1,5 +1,7 @@
-package OnlineFoodOrderingSystem;
+// Main.java
+package onlineFoodOrderingSystem;
 
+import OnlineFoodOrderingSystem.delivery.DeliveryManagementModule;
 import OnlineFoodOrderingSystem.menu.MenuBrowsingAndOrderingModule;
 import OnlineFoodOrderingSystem.restaurant.RestaurantManagementModule;
 
@@ -40,5 +42,26 @@ public class Main {
         menuModule.browseMenu("Restaurant A").forEach(item -> {
             System.out.println("Item: " + item.getName() + ", Price: $" + item.getPrice());
         });
+
+        // Create an instance of DeliveryManagementModule
+        DeliveryManagementModule deliveryModule = new DeliveryManagementModule();
+
+        // Add orders
+        deliveryModule.addOrder("1", "customer1", "Restaurant A", "123 Elm St");
+        deliveryModule.addOrder("2", "customer2", "Restaurant B", "456 Oak St");
+
+        // Get orders assigned to a delivery agent
+        System.out.println("Orders assigned to Delivery Agent 001:");
+        deliveryModule.getOrdersForDeliveryAgent("001").forEach(order -> {
+            System.out.println("Order ID: " + order.getOrderId());
+            System.out.println("Customer ID: " + order.getCustomerId());
+            System.out.println("Restaurant Name: " + order.getRestaurantName());
+            System.out.println("Delivery Address: " + order.getDeliveryAddress());
+            System.out.println("Status: " + order.getStatus());
+            System.out.println();
+        });
+
+        // Update the status of an order
+        deliveryModule.updateOrderStatus("1", "Delivered");
     }
 }
